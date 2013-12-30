@@ -15,7 +15,7 @@ public class MobileUserAgentProvider extends PropertyProviderBaseImpl {
 	}
 
 	@Override
-	public String getPropertyValue(HttpServletRequest req) throws PropertyProviderException {
+	public String getPropertyValue(HttpServletRequest req) {
 		String ua = getUserAgent(req);
 
 		if (ua.contains("android")) {

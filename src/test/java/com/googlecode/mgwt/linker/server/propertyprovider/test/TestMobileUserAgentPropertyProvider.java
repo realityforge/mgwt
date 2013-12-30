@@ -1,12 +1,13 @@
 package com.googlecode.mgwt.linker.server.propertyprovider.test;
 
+import javax.servlet.http.HttpServletRequest;
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.googlecode.mgwt.linker.server.propertyprovider.MobileUserAgentProvider;
-import com.googlecode.mgwt.linker.server.propertyprovider.PropertyProviderException;
+import static org.mockito.Mockito.*;
 
 public class TestMobileUserAgentPropertyProvider {
 
@@ -23,37 +24,37 @@ public class TestMobileUserAgentPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueIphone() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.IPHONE_IOS5_USER_AGENT);
+	public void testGetPropertyValueIphone() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.IPHONE_IOS5_USER_AGENT );
 		Assert.assertEquals("mobilesafari", provider.getPropertyValue(mockServletRequest));
 	}
 
 	@Test
-	public void testGetPropertyValueIpad() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.IPAD_IOS5_USER_AGENT);
+	public void testGetPropertyValueIpad() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.IPAD_IOS5_USER_AGENT );
 		Assert.assertEquals("mobilesafari", provider.getPropertyValue(mockServletRequest));
 	}
 
 	@Test
-	public void testGetPropertyValueAndroid() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.ANDROID_PHONE_2x_USER_AGENT);
+	public void testGetPropertyValueAndroid() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.ANDROID_PHONE_2x_USER_AGENT );
 		Assert.assertEquals("mobilesafari", provider.getPropertyValue(mockServletRequest));
 	}
 
 	@Test
-	public void testGetPropertyValueBlackberry() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.BLACKBERRY_USER_AGENT);
+	public void testGetPropertyValueBlackberry() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.BLACKBERRY_USER_AGENT );
 		Assert.assertEquals("not_mobile", provider.getPropertyValue(mockServletRequest));
 	}
 
 	@Test
-	public void testGetPropertyValueDesktop() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.DESKTOP_USER_AGENT_CHROME);
+	public void testGetPropertyValueDesktop() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.DESKTOP_USER_AGENT_CHROME );
 		Assert.assertEquals("not_mobile", provider.getPropertyValue(mockServletRequest));
 	}
 

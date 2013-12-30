@@ -16,6 +16,7 @@
 package com.googlecode.mgwt.linker.server.propertyprovider;
 
 import javax.servlet.http.HttpServletRequest;
+import org.realityforge.gwt.appcache.server.propertyprovider.PropertyProvider;
 
 public class PhoneGapPropertyProvider implements PropertyProvider {
 
@@ -30,7 +31,7 @@ public class PhoneGapPropertyProvider implements PropertyProvider {
 	}
 
 	@Override
-	public String getPropertyValue(HttpServletRequest req) throws PropertyProviderException {
+	public String getPropertyValue(HttpServletRequest req) {
 		return "no";
 	}
 

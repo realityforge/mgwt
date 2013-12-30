@@ -1,6 +1,7 @@
 package com.googlecode.mgwt.linker.server.propertyprovider;
 
 import javax.servlet.http.HttpServletRequest;
+import org.realityforge.gwt.appcache.server.propertyprovider.PropertyProvider;
 
 public abstract class PropertyProviderBaseImpl implements PropertyProvider {
 

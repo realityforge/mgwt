@@ -2,13 +2,14 @@ package com.googlecode.mgwt.linker.server.propertyprovider.test;
 
 import javax.servlet.http.Cookie;
 
+import javax.servlet.http.HttpServletRequest;
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.googlecode.mgwt.linker.server.propertyprovider.MgwtOsPropertyProvider;
-import com.googlecode.mgwt.linker.server.propertyprovider.PropertyProviderException;
+import static org.mockito.Mockito.*;
 
 public class TestMgwtOsPropertyProvider {
 
@@ -26,10 +27,10 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueIphoneWithoutScreenCookie() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.IPHONE_IOS5_USER_AGENT);
-		mockServletRequest.setCookies(new Cookie[0]);
+	public void testGetPropertyValueIphoneWithoutScreenCookie() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.IPHONE_IOS5_USER_AGENT );
+        when( mockServletRequest.getCookies() ).thenReturn( new Cookie[0] );
 
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
@@ -38,12 +39,12 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueIphoneScreenCookieRetina() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.IPHONE_IOS5_USER_AGENT);
+	public void testGetPropertyValueIphoneScreenCookieRetina() {
 		Cookie[] cookies = new Cookie[1];
 		cookies[0] = new Cookie("mgwt_ios_retina", "1");
-		mockServletRequest.setCookies(cookies);
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.IPHONE_IOS5_USER_AGENT );
+        when( mockServletRequest.getCookies() ).thenReturn( cookies );
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
 		Assert.assertEquals("retina", propertyValue);
@@ -51,12 +52,12 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueIphoneScreenCookieNonRetina() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.IPHONE_IOS5_USER_AGENT);
+	public void testGetPropertyValueIphoneScreenCookieNonRetina() {
 		Cookie[] cookies = new Cookie[1];
 		cookies[0] = new Cookie("mgwt_ios_retina", "0");
-		mockServletRequest.setCookies(cookies);
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.IPHONE_IOS5_USER_AGENT );
+        when( mockServletRequest.getCookies() ).thenReturn( cookies );
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
 		Assert.assertEquals("iphone", propertyValue);
@@ -64,9 +65,9 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueIpad() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.IPAD_IOS5_USER_AGENT);
+	public void testGetPropertyValueIpad() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.IPAD_IOS5_USER_AGENT );
 
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
@@ -75,13 +76,12 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueIpadNonRetina() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.IPAD_IOS5_USER_AGENT);
-
+	public void testGetPropertyValueIpadNonRetina() {
 		Cookie[] cookies = new Cookie[1];
 		cookies[0] = new Cookie("mgwt_ios_retina", "0");
-		mockServletRequest.setCookies(cookies);
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.IPAD_IOS5_USER_AGENT );
+        when( mockServletRequest.getCookies() ).thenReturn( cookies );
 
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
@@ -90,13 +90,12 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueIpadRetina() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.IPAD_IOS5_USER_AGENT);
-
+	public void testGetPropertyValueIpadRetina() {
 		Cookie[] cookies = new Cookie[1];
 		cookies[0] = new Cookie("mgwt_ios_retina", "1");
-		mockServletRequest.setCookies(cookies);
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.IPAD_IOS5_USER_AGENT );
+        when( mockServletRequest.getCookies() ).thenReturn( cookies );
 
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
@@ -105,20 +104,20 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueAndroid() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.ANDROID_PHONE_2x_USER_AGENT);
+	public void testGetPropertyValueAndroid() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.ANDROID_PHONE_2x_USER_AGENT );
 
-		String propertyValue = provider.getPropertyValue(mockServletRequest);
+        String propertyValue = provider.getPropertyValue(mockServletRequest);
 
 		Assert.assertEquals("android", propertyValue);
 
 	}
 
 	@Test
-	public void testGetPropertyValueAndroidTablet() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.ANDROID_TABLET_USER_AGENT);
+	public void testGetPropertyValueAndroidTablet() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.ANDROID_TABLET_USER_AGENT );
 
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
@@ -127,9 +126,9 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueDesktopChrome() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.DESKTOP_USER_AGENT_CHROME);
+	public void testGetPropertyValueDesktopChrome() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.DESKTOP_USER_AGENT_CHROME );
 
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
@@ -138,9 +137,9 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueDesktopSafari() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.DESKTOP_USER_AGENT_SAFARI);
+	public void testGetPropertyValueDesktopSafari() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.DESKTOP_USER_AGENT_SAFARI );
 
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
@@ -149,9 +148,9 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueDesktopFirefox() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.DESKTOP_USER_AGENT_FIREFOX);
+	public void testGetPropertyValueDesktopFirefox() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.DESKTOP_USER_AGENT_FIREFOX );
 
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
@@ -160,9 +159,9 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueBlackberry() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent(UserAgents.BLACKBERRY_USER_AGENT);
+	public void testGetPropertyValueBlackberry() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( UserAgents.BLACKBERRY_USER_AGENT );
 
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
@@ -171,9 +170,9 @@ public class TestMgwtOsPropertyProvider {
 	}
 
 	@Test
-	public void testGetPropertyValueDesktopAsDefault() throws PropertyProviderException {
-		MockServletRequest mockServletRequest = new MockServletRequest();
-		mockServletRequest.setUserAgent("");
+	public void testGetPropertyValueDesktopAsDefault() {
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getHeader( "User-Agent" ) ).thenReturn( "" );
 
 		String propertyValue = provider.getPropertyValue(mockServletRequest);
 
@@ -183,12 +182,13 @@ public class TestMgwtOsPropertyProvider {
 
 	@Test
 	public void testGetRetinaCookieValueValid() {
-		MockServletRequest mockServletRequest = new MockServletRequest();
 		Cookie[] cookies = new Cookie[2];
 		cookies[0] = new Cookie("test", "bla");
 		cookies[1] = new Cookie("mgwt_ios_retina", "bla");
 
-		mockServletRequest.setCookies(cookies);
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getCookies() ).thenReturn( cookies );
+
 		String retinaCookieValue = provider.getRetinaCookieValue(mockServletRequest);
 
 		Assert.assertEquals("bla", retinaCookieValue);
@@ -196,11 +196,11 @@ public class TestMgwtOsPropertyProvider {
 
 	@Test
 	public void testGetRetinaCookieValueInvalid() {
-		MockServletRequest mockServletRequest = new MockServletRequest();
 		Cookie[] cookies = new Cookie[1];
 		cookies[0] = new Cookie("test", "bla");
+        HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
+        when( mockServletRequest.getCookies() ).thenReturn( cookies );
 
-		mockServletRequest.setCookies(cookies);
 		String retinaCookieValue = provider.getRetinaCookieValue(mockServletRequest);
 
 		Assert.assertNull(retinaCookieValue);
@@ -208,7 +208,7 @@ public class TestMgwtOsPropertyProvider {
 
 	@Test
 	public void testGetRetinaCookieValueWithoutCookiesValues() {
-		MockServletRequest mockServletRequest = new MockServletRequest();
+		HttpServletRequest mockServletRequest = mock( HttpServletRequest.class );
 
 		String retinaCookieValue = provider.getRetinaCookieValue(mockServletRequest);
 

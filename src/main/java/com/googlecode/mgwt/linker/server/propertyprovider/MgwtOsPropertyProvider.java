@@ -2,8 +2,7 @@ package com.googlecode.mgwt.linker.server.propertyprovider;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-
-import com.googlecode.mgwt.linker.server.BindingProperty;
+import org.realityforge.gwt.appcache.server.BindingProperty;
 
 public class MgwtOsPropertyProvider extends PropertyProviderBaseImpl {
 
@@ -25,7 +24,7 @@ public class MgwtOsPropertyProvider extends PropertyProviderBaseImpl {
 	}
 
 	@Override
-	public String getPropertyValue(HttpServletRequest req) throws PropertyProviderException {
+	public String getPropertyValue(HttpServletRequest req) {
 		String userAgent = getUserAgent(req);
 
 		// android

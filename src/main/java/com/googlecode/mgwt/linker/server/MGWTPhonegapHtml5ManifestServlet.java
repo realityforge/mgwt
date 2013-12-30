@@ -3,7 +3,7 @@ package com.googlecode.mgwt.linker.server;
 import com.googlecode.mgwt.linker.server.propertyprovider.MgwtOsPropertyProvider;
 import com.googlecode.mgwt.linker.server.propertyprovider.MobileUserAgentProvider;
 import com.googlecode.mgwt.linker.server.propertyprovider.PhoneGapPropertyProvider;
-import com.googlecode.mgwt.linker.server.propertyprovider.UserAgentPropertyProvider;
+import org.realityforge.gwt.appcache.server.propertyprovider.UserAgentPropertyProvider;
 
 public class MGWTPhonegapHtml5ManifestServlet extends Html5ManifestServletBase {
 

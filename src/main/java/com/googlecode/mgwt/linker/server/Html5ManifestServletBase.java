@@ -20,7 +20,6 @@ public class Html5ManifestServletBase
                                             final List<BindingProperty> computedBindings )
     throws ServletException
   {
-    //TODO: Add tests for this!
     final boolean isIPhoneWithoutCookie = computedBindings.contains( MgwtOsPropertyProvider.iPhone_undefined );
     final boolean isIPadWithoutCookie = computedBindings.contains( MgwtOsPropertyProvider.iPad_undefined );
     if ( isIPhoneWithoutCookie || isIPadWithoutCookie )

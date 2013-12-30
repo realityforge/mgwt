@@ -17,6 +17,7 @@
 
 	<properties>
 		<gwtversion>2.5.0</gwtversion>
+		<gwt.appcache.version>0.7</gwt.appcache.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -152,7 +153,24 @@
 			<version>${gwtversion}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+        <dependency>
+            <groupId>org.realityforge.gwt.appcache</groupId>
+            <artifactId>gwt-appcache-client</artifactId>
+            <version>${gwt.appcache.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.realityforge.gwt.appcache</groupId>
+            <artifactId>gwt-appcache-linker</artifactId>
+            <version>${gwt.appcache.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.realityforge.gwt.appcache</groupId>
+            <artifactId>gwt-appcache-server</artifactId>
+            <version>${gwt.appcache.version}</version>
+        </dependency>
+        <dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>

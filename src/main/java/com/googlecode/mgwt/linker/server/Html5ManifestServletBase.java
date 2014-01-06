@@ -42,12 +42,19 @@ public class Html5ManifestServletBase
       nonRetinaMatch.addAll( computedBindings );
       retinaMatch.addAll( computedBindings );
 
-      final String moduleNameNonRetina = getPermutationStrongName( baseUrl, moduleName, nonRetinaMatch );
-      final String moduleNameRetina = getPermutationStrongName( baseUrl, moduleName, retinaMatch );
+      final String[] nonRetinaPermutations = selectPermutations( baseUrl, moduleName, nonRetinaMatch );
+      final String[] retinaPermutations = selectPermutations( baseUrl, moduleName, retinaMatch );
 
-      if ( null != moduleNameNonRetina && null != moduleNameRetina )
+      if ( null != nonRetinaPermutations && null != retinaPermutations )
       {
-        final String manifest = loadAndMergeManifests( baseUrl, moduleName, moduleNameNonRetina, moduleNameRetina );
+        final String[] permutations = new String[ nonRetinaPermutations.length + retinaPermutations.length ];
+        System.arraycopy( nonRetinaPermutations, 0, permutations, 0, nonRetinaPermutations.length );
+        System.arraycopy( retinaPermutations,
+                          0,
+                          permutations,
+                          nonRetinaPermutations.length,
+                          retinaPermutations.length );
+        final String manifest = loadAndMergeManifests( baseUrl, moduleName, permutations );
         serveStringManifest( response, manifest );
         return true;
       }

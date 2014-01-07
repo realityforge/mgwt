@@ -96,7 +96,6 @@ public class TestHtml5ManifestServlet
       permutation2 + ".txt\n" +
       "\n" +
       "\n" +
-      "# All other resources require the client to be online.\n" +
       "NETWORK:\n";
     verify( output ).write( combinedManifest.getBytes( "US-ASCII" ) );
   }
